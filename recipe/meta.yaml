@@ -1,6 +1,6 @@
 {% set name = "ecos" %}
-{% set version = "2.0.5" %}
-{% set sha256 = "5dbe53db1cad43f08ba91e98918314c2fc149a481a44af19133c60e436dc2eeb" %}
+{% set version = "2.0.7" %}
+{% set sha256 = "5f7b57e4d6b5b655f551b1ba57966fc927ea0efd226d3c1f9519f9fbb21bf11d" %}
 
 package:
   name: {{ name|lower }}
