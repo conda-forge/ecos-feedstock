@@ -1,6 +1,6 @@
 {% set name = "ecos" %}
-{% set version = "2.0.7" %}
-{% set sha256 = "5f7b57e4d6b5b655f551b1ba57966fc927ea0efd226d3c1f9519f9fbb21bf11d" %}
+{% set version = "2.0.7post1" %}
+{% set sha256 = "83e90f42b3f32e2a93f255c3cfad2da78dbd859119e93844c45d2fca20bdc758" %}
 
 package:
   name: {{ name|lower }}
@@ -11,7 +11,7 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 1000
+  number: 1
   script: python -m pip install --no-deps --ignore-installed .
   skip: true  # figure out Windows build later...  # [win]
 
