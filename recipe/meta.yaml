@@ -25,7 +25,7 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - scipy >=0.9
+    - scipy >=1.1
 
 test:
   imports:
