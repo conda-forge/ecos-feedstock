@@ -37,8 +37,8 @@ test:
     - python test_interface_bb.py
 
 about:
-  home: http://www.embotech.com/ECOS
-  license: GPL-3.0
+  home: https://github.com/embotech/ecos
+  license: GPL-3.0-only
   license_family: GPL
   license_file: LICENSE  # in recipe for now; https://github.com/embotech/ecos-python/pull/15
   summary: 'Python interface for ECOS, a lightweight conic solver for second-order cone programming'
