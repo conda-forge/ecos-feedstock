@@ -5,6 +5,7 @@ package:
   version: {{ version }}
 
 source:
+  # cannot build from github tarball, because of missing submodules, cf. dear-github/dear-github#214
   url: https://pypi.io/packages/source/e/ecos/ecos-{{ version }}.tar.gz
   sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
@@ -28,12 +29,18 @@ requirements:
     - scipy >=1.1
 
 test:
+  requires:
+    - nose
   imports:
     - ecos
     - _ecos
   files:
-    - test_interface_bb.py  # copied from repo; isn't in the sdist
+    # copied from repo, because these files are not in the sdist
+    # (impossible to build from source tarball, see above)
+    - test_interface.py
+    - test_interface_bb.py
   commands:
+    - python test_interface.py
     - python test_interface_bb.py
 
 about:
