@@ -1,17 +1,15 @@
-{% set name = "ecos" %}
-{% set version = "2.0.7.post1" %}
-{% set sha256 = "83e90f42b3f32e2a93f255c3cfad2da78dbd859119e93844c45d2fca20bdc758" %}
+{% set version = "2.0.8" %}
 
 package:
-  name: {{ name|lower }}
+  name: ecos
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/e/ecos/ecos-{{ version }}.tar.gz
+  sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
 
 build:
-  number: 4
+  number: 0
   script: {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
