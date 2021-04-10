@@ -6,8 +6,12 @@ package:
 
 source:
   # cannot build from github tarball, because of missing submodules, cf. dear-github/dear-github#214
-  url: https://pypi.io/packages/source/e/ecos/ecos-{{ version }}.tar.gz
-  sha256: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+  # cannot use PyPI, because no wheels have been published 3 months later, see:
+  # https://github.com/embotech/ecos-python/commit/97db46bc65e243c75eadc06d36e36dcedce92f8c
+  # for these reasons, we exceptionally use git_url, which does fetch submodules by default in conda-build
+  git_url: https://github.com/embotech/ecos-python.git
+  git_rev: {{ version }}
+  git_depth: 1
 
 build:
   number: 0
