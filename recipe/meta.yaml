@@ -39,14 +39,12 @@ test:
   imports:
     - ecos
     - _ecos
-  files:
-    # copied from repo, because these files are not in the sdist
-    # (impossible to build from source tarball, see above)
-    - test_interface.py
-    - test_interface_bb.py
+  source_files:
+    - src/test_interface.py
+    - src/test_interface_bb.py
   commands:
-    - python test_interface.py
-    - python test_interface_bb.py
+    - python src/test_interface.py
+    - python src/test_interface_bb.py
 
 about:
   home: https://github.com/embotech/ecos
