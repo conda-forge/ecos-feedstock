@@ -1,18 +1,21 @@
-{% set name = "ecos" %}
-{% set version = "2.0.7.post1" %}
-{% set sha256 = "83e90f42b3f32e2a93f255c3cfad2da78dbd859119e93844c45d2fca20bdc758" %}
+{% set version = "2.0.8" %}
 
 package:
-  name: {{ name|lower }}
+  name: ecos
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  # cannot build from github tarball, because of missing submodules, cf. dear-github/dear-github#214
+  # cannot use PyPI, because no wheels have been published 3 months later, see:
+  # https://github.com/embotech/ecos-python/commit/97db46bc65e243c75eadc06d36e36dcedce92f8c
+  # for these reasons, we exceptionally use git_url, which does fetch submodules by default in conda-build
+  git_url: https://github.com/embotech/ecos-python.git
+  git_rev: {{ version }}
+  git_depth: 1
 
 build:
-  number: 4
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  number: 0
+  script: make version && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
@@ -20,6 +23,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - make
   host:
     - python
     - pip
@@ -30,13 +34,17 @@ requirements:
     - scipy >=1.1
 
 test:
+  requires:
+    - nose
   imports:
     - ecos
     - _ecos
-  files:
-    - test_interface_bb.py  # copied from repo; isn't in the sdist
+  source_files:
+    - src/test_interface.py
+    - src/test_interface_bb.py
   commands:
-    - python test_interface_bb.py
+    - python src/test_interface.py
+    - python src/test_interface_bb.py
 
 about:
   home: https://github.com/embotech/ecos
