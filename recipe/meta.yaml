@@ -15,7 +15,7 @@ source:
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps -vv
+  script: make version && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
   build:
@@ -23,6 +23,7 @@ requirements:
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - make
   host:
     - python
     - pip
