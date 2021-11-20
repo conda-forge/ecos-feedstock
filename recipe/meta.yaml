@@ -11,7 +11,7 @@ source:
     sha256: 4715d97fa728c1446e2a68a3009f73325c79c509b25ad745d3756a397193d884
   # include submodule (not in github tarball due to dear-github/dear-github#214)
   - git_url: https://github.com/embotech/ecos.git
-    git_rev: 3b98fe0376ceeeb8310a06694b0a84ac59920f3f
+    git_rev: v2.0.8
     folder: ecos
 
 build:
