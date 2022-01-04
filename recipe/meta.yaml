@@ -5,12 +5,12 @@ package:
   version: {{ version }}
 
 source:
-  # cannot use PyPI, because no wheels have been published, see discussion here:
-  # https://github.com/embotech/ecos-python/commit/97db46bc65e243c75eadc06d36e36dcedce92f8c
   - url: https://github.com/embotech/ecos-python/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 2291459e95c5e11146306f6dc2cdf5f99aeee1777a6b38c409bc8ce009ff1512
   # include submodule (not in github tarball due to dear-github/dear-github#214)
   - git_url: https://github.com/embotech/ecos.git
+    # note: ecos-python 2.0.9 still includes ecos 2.0.8, see
+    # https://github.com/embotech/ecos-python/commit/5ec986e434c86fe1c94e27737a8115ce9846b27d
     git_rev: v2.0.8
     folder: ecos
 
