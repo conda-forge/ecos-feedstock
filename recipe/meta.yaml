@@ -7,13 +7,15 @@ package:
 source:
   - url: https://github.com/embotech/ecos-python/archive/refs/tags/v{{ version }}.tar.gz
     sha256: fc22c5cc7883c4a446283d28dc051c9ba0f899d497f75468fcd0bb2f29139726
+    patches:
+      - patches/0001-fix-test-case.patch
   # include submodule (not in github tarball due to dear-github/dear-github#214)
   - git_url: https://github.com/embotech/ecos.git
     git_rev: v{{ version }}
     folder: ecos
 
 build:
-  number: 1
+  number: 2
   script: make version && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
