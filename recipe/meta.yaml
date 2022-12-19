@@ -1,4 +1,4 @@
-{% set version = "2.0.10" %}
+{% set version = "2.0.11" %}
 
 package:
   name: ecos
@@ -6,7 +6,7 @@ package:
 
 source:
   - url: https://github.com/embotech/ecos-python/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: fc22c5cc7883c4a446283d28dc051c9ba0f899d497f75468fcd0bb2f29139726
+    sha256: 01ebd3fc8a54822e035c5d69f750fc577001754a057a6a023b68e736c43a7823
     patches:
       - patches/0001-fix-test-case.patch
   # include submodule (not in github tarball due to dear-github/dear-github#214)
@@ -15,7 +15,7 @@ source:
     folder: ecos
 
 build:
-  number: 2
+  number: 0
   script: make version && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
