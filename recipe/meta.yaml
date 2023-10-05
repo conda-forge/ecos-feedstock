@@ -15,7 +15,7 @@ source:
     folder: ecos
 
 build:
-  number: 0
+  number: 1
   script: make version && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
