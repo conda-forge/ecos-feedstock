@@ -36,7 +36,7 @@ requirements:
 
 test:
   requires:
-    - nose
+    - pytest
   imports:
     - ecos
     - _ecos
