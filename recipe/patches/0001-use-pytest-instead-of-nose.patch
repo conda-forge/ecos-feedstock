@@ -1,22 +1,86 @@
-From 6ad47bec41128e675189b7361f0018bf7e8a3617 Mon Sep 17 00:00:00 2001
+From 823b2e69ec50770f0114a811971a8715883da243 Mon Sep 17 00:00:00 2001
 From: "H. Vetinari" <h.vetinari@gmx.com>
 Date: Fri, 6 Oct 2023 13:37:45 +1100
 Subject: [PATCH] use pytest instead of nose
 
 ---
- src/test_interface.py | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ src/test_interface.py | 42 ++++++++++++++++++++----------------------
+ 1 file changed, 20 insertions(+), 22 deletions(-)
 
 diff --git a/src/test_interface.py b/src/test_interface.py
-index aa18622..2538894 100644
+index aa18622..098030d 100644
 --- a/src/test_interface.py
 +++ b/src/test_interface.py
-@@ -8,7 +8,7 @@ def import_error(msg):
+@@ -8,9 +8,10 @@ def import_error(msg):
    print()
  
  try:
 -  from nose.tools import assert_raises, assert_almost_equals
-+  from pytest import assert_raises, assert_almost_equals
++  import pytest
++  from numpy.testing import assert_almost_equal
  except ImportError:
-   import_error("Please install nose to run tests.")
+-  import_error("Please install nose to run tests.")
++  import_error("Please install pytest to run tests.")
    raise
+ 
+ try:
+@@ -39,20 +40,17 @@ A = sp.csc_matrix([1.])
+ b = np.array([3.])
+ dims = {'q': [], 'l': 2}
+ 
+-def check_solution(solution, expected):
+-  assert_almost_equals(solution, expected, places=5)
+-
+ def test_problems():
+   myopts = {'feastol': 2e-8, 'reltol': 2e-8, 'abstol': 2e-8, 'verbose':True};
+   sol = ecos.solve(c, G, h, dims, **myopts)
+-  yield check_solution, sol['x'][0], 4
++  assert_almost_equal(['x'][0], 4, decimal=5)
+ 
+   sol = ecos.solve(c, G, h, dims, A, b, **myopts)
+-  yield check_solution, sol['x'][0], 3
++  assert_almost_equal(sol['x'][0], 3, decimal=5)
+ 
+   new_dims = {'q':[2], 'l': 0}
+   sol = ecos.solve(c, G, h, new_dims, **myopts)
+-  yield check_solution, sol['x'][0], 2
++  assert_almost_equal(sol['x'][0], 2, decimal=5)
+ 
+ if platform.python_version_tuple() < ('3','0','0'):
+   def test_problems_with_longs():
+@@ -69,21 +67,21 @@ if platform.python_version_tuple() < ('3','0','0'):
+     yield check_solution, sol['x'][0], 2
+ 
+ def check_keyword(error_type, keyword, value):
+-  assert_raises(error_type, ecos.solve, c,G,h,dims, **{keyword: value})
++  pytest.raises(error_type, ecos.solve, c,G,h,dims, **{keyword: value})
+ 
+ def test_failures():
+-  yield assert_raises, TypeError, ecos.solve
+-  yield assert_raises, TypeError, ecos.solve, c, G, h, dims, A
++  pytest.raises(TypeError, ecos.solve)
++  pytest.raises(TypeError, ecos.solve, c, G, h, dims, A)
+ 
+-  yield assert_raises, ValueError, ecos.solve, c, G, h, {'q':[], 'l':0}
+-  yield assert_raises, TypeError, ecos.solve, c, G, h, {'q':[4], 'l':-2}
++  pytest.raises(ValueError, ecos.solve, c, G, h, {'q':[], 'l':0})
++  pytest.raises(TypeError, ecos.solve, c, G, h, {'q':[4], 'l':-2})
+ 
+-  yield check_keyword, TypeError, 'verbose', 0
+-  yield check_keyword, ValueError, 'feastol', 0
+-  yield check_keyword, ValueError, 'abstol', 0
+-  yield check_keyword, ValueError, 'reltol', 0
+-  yield check_keyword, ValueError, 'feastol_inacc', 0
+-  yield check_keyword, ValueError, 'abstol_inacc', 0
+-  yield check_keyword, ValueError, 'reltol_inacc', 0
+-  yield check_keyword, ValueError, 'max_iters', -1
+-  yield check_keyword, TypeError, 'max_iters', 1.1
++  check_keyword(TypeError, 'verbose', 0)
++  check_keyword(ValueError, 'feastol', 0)
++  check_keyword(ValueError, 'abstol', 0)
++  check_keyword(ValueError, 'reltol', 0)
++  check_keyword(ValueError, 'feastol_inacc', 0)
++  check_keyword(ValueError, 'abstol_inacc', 0)
++  check_keyword(ValueError, 'reltol_inacc', 0)
++  check_keyword(ValueError, 'max_iters', -1)
++  check_keyword(TypeError, 'max_iters', 1.1)
