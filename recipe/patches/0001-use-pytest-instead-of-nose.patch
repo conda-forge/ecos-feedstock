@@ -1,0 +1,22 @@
+From 6ad47bec41128e675189b7361f0018bf7e8a3617 Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Fri, 6 Oct 2023 13:37:45 +1100
+Subject: [PATCH] use pytest instead of nose
+
+---
+ src/test_interface.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/test_interface.py b/src/test_interface.py
+index aa18622..2538894 100644
+--- a/src/test_interface.py
++++ b/src/test_interface.py
+@@ -8,7 +8,7 @@ def import_error(msg):
+   print()
+ 
+ try:
+-  from nose.tools import assert_raises, assert_almost_equals
++  from pytest import assert_raises, assert_almost_equals
+ except ImportError:
+   import_error("Please install nose to run tests.")
+   raise
