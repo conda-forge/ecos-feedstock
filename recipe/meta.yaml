@@ -9,13 +9,15 @@ package:
 source:
   - url: https://github.com/embotech/ecos-python/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 01ebd3fc8a54822e035c5d69f750fc577001754a057a6a023b68e736c43a7823
+    patches:
+      - patches/0001-use-pytest-instead-of-nose.patch
   # include submodule (not in github tarball due to dear-github/dear-github#214)
   - git_url: https://github.com/embotech/ecos.git
     git_rev: v{{ version_core }}
     folder: ecos
 
 build:
-  number: 0
+  number: 1
   script: make version && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
@@ -36,7 +38,7 @@ requirements:
 
 test:
   requires:
-    - nose
+    - pytest
   imports:
     - ecos
     - _ecos
