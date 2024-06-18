@@ -1,4 +1,4 @@
-{% set version = "2.0.13" %}
+{% set version = "2.0.14" %}
 # only python bindings got updated, core lib unchanged
 {% set version_core = "2.0.10" %}
 
@@ -8,14 +8,14 @@ package:
 
 source:
   - url: https://github.com/embotech/ecos-python/archive/refs/tags/v{{ version }}.tar.gz
-    sha256: c52d64f0131d43cdc27ca9160dc38fbfb3faa8d4be48f891d88c343057a1b383
+    sha256: 43d1b70b3ac6d7095c6451e06e551c825884f124c5305c48b311a51ca52774ef
   # include submodule (not in github tarball due to dear-github/dear-github#214)
   - git_url: https://github.com/embotech/ecos.git
     git_rev: v{{ version_core }}
     folder: ecos
 
 build:
-  number: 1
+  number: 0
   script: make version && {{ PYTHON }} -m pip install . --no-deps -vv
 
 requirements:
