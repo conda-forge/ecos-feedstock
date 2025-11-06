@@ -369,4 +369,5 @@ Feedstock Maintainers
 
 * [@djsutherland](https://github.com/djsutherland/)
 * [@h-vetinari](https://github.com/h-vetinari/)
+* [@sebp](https://github.com/sebp/)
 
